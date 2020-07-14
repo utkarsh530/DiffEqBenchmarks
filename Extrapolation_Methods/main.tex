@@ -1,0 +1,46 @@
+\documentclass[a4paper,12pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Implicit Extrapolation Methods}
+\author{Utkarsh}
+\date{July 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Work Calculations}
+\subsection{Hairer Wanner Adaptivity}
+
+Using default work values for this solver,
+\[A[1]=5 + 2(N[1] + 1) + 1 , N[1] = 1\]
+\[\therefore A[1] = 10\]
+\[A[J] = A[J-1] + 2(4N[J]-1) + 1\]
+\[A[J] = A[J-1] + 8N[J] - 1\]
+Summing over the both sides,
+\[A[N] = A[1] + 8\sum_{J=2}^{N}(N[J]) - \sum_{J=2}^{N}1\]
+\[A[N] = A[1] + 8\sum_{J=1}^{N}(N[J]) - 8N[1] - N + 1\]
+\[A[N] = 10 + 8\sum_{J=1}^{N}(N[J]) - 8 - N + 1\]
+\[\boxed{A[N] = 8\sum_{J=1}^{N}(N[J]) - N + 3}\]
+\subsection{Deuflhard Adaptivity}
+Using default work values for this solver,
+\[A[1] = N[1] + 1 + NJAC, N[1] = 1, NJAC = NxN Jacobian\]
+\[A[1] = 2 + NJAC\]
+\[A[J] = A[J-1] + 4N[J] - 1\]
+Summing over the both sides,
+\[A[N] = A[1] + 4\sum_{J=2}^{N}(N[J]) - \sum_{J=2}^{N}1\]
+\[A[N] = A[1] + 4\sum_{J=1}^{N}(N[J]) - 4N[1] - N + 1\]
+\[A[N] = 2 + NJAC + 4\sum_{J=1}^{N}(N[J]) - 4 - N + 1\]
+\[\boxed{A[N] = 4\sum_{J=1}^{N}(N[J]) - N - 1 + NJAC}\]
+\subsection{Explicit Methods}
+\[A[1] = N[1] + 1, N[1] = 1\]
+\[A[1] = 2\]
+\[A[J] = A[J-1] + seq*N[J] - 1\]
+Summing over the both sides,
+\[A[N] = A[1] + seq\sum_{J=2}^{N}(N[J]) - \sum_{J=2}^{N}1\]
+\[A[N] = A[1] + seq\sum_{J=1}^{N}(N[J]) - seqN[1] - N + 1\]
+\[A[N] = 2 + seq\sum_{J=1}^{N}(N[J]) - seq - N + 1\]
+\[\boxed{A[N] = seq\sum_{J=1}^{N}(N[J]) - N + 3 - seq}\]
+\end{document}
